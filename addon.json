@@ -1,8 +1,11 @@
 {
-    "title": "TPG E2/SF Sandbox Test Stub",
-    "type": "gamemode",
-    "tags": ["build", "roleplay"],
+    "title": "The Proving Ground - E2 & Starfall Team Functions",
+    "type": "tool",
+    "tags": ["build"],
     "ignore": [
+        "*.md",
+        "LICENSE",
+        ".gitattributes",
         "*.psd",
         "*.xcf"
     ]

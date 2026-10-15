@@ -5,8 +5,10 @@
     owner's OWN team. If you're on Green you get nothing about Red, and vice
     versa. Spectators/unassigned get empty results.
 
-    Embedded in the gamemode (gamemodes/theprovingground/lua/...), so it loads
-    through Wire's normal core/custom scan without a separate addon.
+    Lives in an addon rather than the gamemode because Wire only scans
+    core/custom on the Lua search path, which a gamemode's own lua/ folder
+    is not. Being an addon also makes it load in plain sandbox; see the stub
+    in lua/autorun/server for what it does there.
 ]]
 
 E2Lib.RegisterExtension("tpg", true,
