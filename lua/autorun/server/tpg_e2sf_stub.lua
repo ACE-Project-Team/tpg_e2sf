@@ -14,7 +14,10 @@
     tpg.getRoster() etc. and see it return something, via tpg_test_team.
 ]]
 
-if TPG and TPG.State then return end
+-- Autorun runs before the gamemode loads, so TPG.State isn't set yet even
+-- under TPG; ask which gamemode is starting instead. Setting up the teams
+-- here would take TPG's team ids before it gets to them.
+if engine.ActiveGamemode() == "theprovingground" then return end
 
 TEAM_GREEN = TEAM_GREEN or 2001
 TEAM_RED   = TEAM_RED or 2002
@@ -26,7 +29,7 @@ TPG.GetTeamData = TPG.GetTeamData or function(t)
     return { name = "", color = color_white }
 end
 
-if team.GetName(TEAM_GREEN) == "Unknown" then
+if not team.Valid(TEAM_GREEN) then
     team.SetUp(TEAM_GREEN, "GREEN (test)", Color(100, 255, 100))
     team.SetUp(TEAM_RED,   "RED (test)",   Color(255, 100, 100))
 end
@@ -34,7 +37,7 @@ end
 concommand.Add("tpg_test_team", function(ply, _, args)
     if not IsValid(ply) then return end
     if TPG and TPG.State then
-        ply:ChatPrint("[TPG test] TPG is actually running -- use the real team menu (F2), not this.")
+        ply:ChatPrint("[TPG test] TPG is actually running - use the real team menu (F2), not this.")
         return
     end
 
@@ -42,5 +45,5 @@ concommand.Add("tpg_test_team", function(ply, _, args)
     local t = (want == "green" and TEAM_GREEN) or (want == "red" and TEAM_RED) or 0
     ply:SetTeam(t)
     ply:ChatPrint("[TPG test] Fake team set to " .. (want ~= "" and want or "none") ..
-        " -- for wiring up tpgTeamCount()/tpg.getRoster() etc. in sandbox. Not the real gamemode.")
+        " - for wiring up tpgTeamCount()/tpg.getRoster() etc. in sandbox. Not the real gamemode.")
 end, nil, "TPG E2/SF sandbox testing: fake your team so tpg* E2/SF/SF functions return non-empty data. Usage: tpg_test_team <green|red|none>")

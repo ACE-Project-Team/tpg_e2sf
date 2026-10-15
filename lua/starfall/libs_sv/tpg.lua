@@ -10,7 +10,7 @@ return function(instance)
 
 local tpg_library  = instance.Libraries.tpg
 local ents_methods = instance.Types.Entity.Methods
-local getent       = instance.Types.Entity.GetEntity
+local getent       = instance.Types.Entity.Unwrap
 local sanitize     = instance.Sanitize
 
 -- ── Helpers ────────────────────────────────────────────────────────────────
