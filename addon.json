@@ -4,6 +4,7 @@
     "tags": ["build"],
     "ignore": [
         "*.md",
+        "media/*",
         "LICENSE",
         ".gitattributes",
         "*.psd",

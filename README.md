@@ -6,6 +6,8 @@ who is on your team, where they are, and what they are carrying.
 **Everything is scoped to the chip owner's own team.** Enemy names, positions and loadouts are
 never exposed; a chip owned by a spectator or an unassigned player gets empty results.
 
+<img src="media/e2sf.gif" alt="An E2 chip reading its team through tpg_e2sf, first on a TPG server, then in sandbox with tpg_test_team" width="100%">
+
 Install it like any other addon. It needs [Wire](https://github.com/wiremod/wire) for the E2
 functions and/or [Starfall](https://github.com/thegrb93/StarfallEx) for the Starfall library;
 whichever is missing is simply skipped.
