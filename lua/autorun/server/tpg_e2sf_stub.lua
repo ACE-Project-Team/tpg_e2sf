@@ -8,9 +8,9 @@
     active gamemode) specifically so those chip functions are reachable in
     plain sandbox too, where none of that setup ever runs.
 
-    So: if the real gamemode is already up (TPG.State exists), get out of the
-    way entirely -- this stub must never shadow real match data. Otherwise, set
-    up just enough of a fake team so a chip can be pointed at tpgTeamCount() /
+    So: if TPG is the gamemode being started, get out of the way entirely --
+    this stub must never shadow real match data. Otherwise, set up just enough
+    of a fake team so a chip can be pointed at tpgTeamCount() /
     tpg.getRoster() etc. and see it return something, via tpg_test_team.
 ]]
 
