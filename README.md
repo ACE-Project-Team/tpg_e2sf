@@ -1,7 +1,10 @@
+<img src="media/icon512.png" alt="tpg_e2sf logo" width="128" align="right">
+
 # TPG E2 & Starfall team functions
 
-Expression 2 and Starfall functions for [The Proving Ground](https://github.com/ACE-Project-Team/The-Proving-Ground):
-who is on your team, where they are, and what they are carrying.
+Expression 2 and Starfall functions for [The Proving Ground](https://github.com/ACE-Project-Team/theprovingground):
+who is on your team, where they are, and what they are carrying. On the
+[Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3820591473).
 
 **Everything is scoped to the chip owner's own team.** Enemy names, positions and loadouts are
 never exposed; a chip owned by a spectator or an unassigned player gets empty results.
