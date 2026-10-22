@@ -122,4 +122,54 @@ function ents_methods:tpgIsTeammate()
     return isTeammate(getent(self))
 end
 
+-- ── Bot seats ──────────────────────────────────────────────────────────────
+-- Bots ride in marked seats through gamemode/bots/sv_vehicles.lua. These only
+-- forward to it, so without the gamemode (plain sandbox) they do nothing.
+local vunwrap = instance.Types.Vector.Unwrap
+
+local function botVehicles()
+    return TPG and TPG.Bots and TPG.Bots.Vehicles
+end
+
+--- Marks this vehicle's seat as a bot seat (true), or unmarks it (false).
+-- Only your own vehicle, and only while you are on a team.
+-- @server
+-- @param boolean enabled
+-- @return boolean True if it worked
+function ents_methods:tpgSetBotSeat(enabled)
+    local bv = botVehicles()
+    if not bv then return false end
+    return bv.SetSeat(instance.player, getent(self), enabled == true)
+end
+
+--- Sets where a bot gets out of this seat, as an offset from the seat.
+-- Clamped to 250 units.
+-- @server
+-- @param Vector offset Local offset from the seat
+-- @return boolean True if it worked
+function ents_methods:tpgSetBotExit(offset)
+    local bv = botVehicles()
+    if not bv then return false end
+    return bv.SetExit(instance.player, getent(self), vunwrap(offset))
+end
+
+--- Is this vehicle's seat marked as a bot seat?
+-- @server
+-- @return boolean
+function ents_methods:tpgIsBotSeat()
+    local ent = getent(self)
+    return IsValid(ent) and ent.TPG_BotSeat == true
+end
+
+--- The bot riding in this seat, or nil if there is none.
+-- @server
+-- @return Entity
+function ents_methods:tpgBotInSeat()
+    local ent = getent(self)
+    if not IsValid(ent) then return nil end
+    local rider = ent.TPG_Rider
+    if IsValid(rider) then return sanitize(rider) end
+    return nil
+end
+
 end

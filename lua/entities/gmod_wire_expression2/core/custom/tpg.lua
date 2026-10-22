@@ -108,3 +108,44 @@ e2function string entity:tpgSpecial()
     if not isTeammate(self, this) then return "" end
     return pdataStr(this, "Special")
 end
+
+-- ── Bot seats ──────────────────────────────────────────────────────────────
+-- Bots ride in marked seats through gamemode/bots/sv_vehicles.lua. These only
+-- forward to it, so without the gamemode (plain sandbox) they do nothing.
+local function botVehicles()
+    return TPG and TPG.Bots and TPG.Bots.Vehicles
+end
+
+__e2setcost(5)
+
+-- Marks this vehicle's seat as a bot seat (n ~= 0), or unmarks it (n == 0).
+-- Only your own vehicle, and only while you are on a team. Returns 1 if it worked, else 0.
+e2function number entity:tpgSetBotSeat(number n)
+    local bv = botVehicles()
+    if not bv then return 0 end
+    return bv.SetSeat(self.player, this, n ~= 0) and 1 or 0
+end
+
+-- Sets where a bot gets out of this seat, as an offset from the seat.
+-- Clamped to 250 units. Returns 1 if it worked, else 0.
+e2function number entity:tpgSetBotExit(vector v)
+    local bv = botVehicles()
+    if not bv then return 0 end
+    return bv.SetExit(self.player, this, Vector(v[1], v[2], v[3])) and 1 or 0
+end
+
+__e2setcost(3)
+
+-- 1 if this vehicle's seat is marked as a bot seat, else 0.
+e2function number entity:tpgIsBotSeat()
+    if not IsValid(this) or this.TPG_BotSeat ~= true then return 0 end
+    return 1
+end
+
+-- The bot riding in this seat, or nil if there is none.
+e2function entity entity:tpgBotInSeat()
+    if not IsValid(this) then return nil end
+    local rider = this.TPG_Rider
+    if IsValid(rider) then return rider end
+    return nil
+end
