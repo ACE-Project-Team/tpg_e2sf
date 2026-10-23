@@ -18,3 +18,5 @@ desc["tpgSetBotSeat(e:n)"] = "Marks this vehicle's seat as a bot seat if n is no
 desc["tpgSetBotExit(e:v)"] = "Sets where a bot gets out of this seat, as an offset from the seat, clamped to 250 units. Returns 1 if it worked, else 0"
 desc["tpgIsBotSeat(e:)"] = "Returns 1 if this vehicle's seat is marked as a bot seat, otherwise 0"
 desc["tpgBotInSeat(e:)"] = "Returns the bot riding in this seat, or nil if there is none"
+desc["tpgBotBoarding(e:)"] = "Returns the bot walking to this seat to board it, or nil if there is none"
+desc["tpgBotBoardPos(e:)"] = "Returns where bots walk to board this seat, which is also where they get out. vec(0, 0, 0) if the entity is not valid"

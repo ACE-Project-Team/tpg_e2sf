@@ -149,3 +149,20 @@ e2function entity entity:tpgBotInSeat()
     if IsValid(rider) then return rider end
     return nil
 end
+
+-- The bot walking to this seat to board it, or nil if there is none.
+e2function entity entity:tpgBotBoarding()
+    local bv = botVehicles()
+    if not bv or not bv.Boarder then return nil end
+    return bv.Boarder(this)
+end
+
+__e2setcost(10)
+
+-- Where bots walk to board this seat, which is where they get out too.
+-- vec(0, 0, 0) if the entity is not valid.
+e2function vector entity:tpgBotBoardPos()
+    local bv = botVehicles()
+    local pos = bv and bv.BoardPos and bv.BoardPos(this)
+    return pos or Vector(0, 0, 0)
+end

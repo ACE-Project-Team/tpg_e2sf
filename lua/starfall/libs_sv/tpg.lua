@@ -125,7 +125,7 @@ end
 -- ── Bot seats ──────────────────────────────────────────────────────────────
 -- Bots ride in marked seats through gamemode/bots/sv_vehicles.lua. These only
 -- forward to it, so without the gamemode (plain sandbox) they do nothing.
-local vunwrap = instance.Types.Vector.Unwrap
+local vwrap, vunwrap = instance.Types.Vector.Wrap, instance.Types.Vector.Unwrap
 
 local function botVehicles()
     return TPG and TPG.Bots and TPG.Bots.Vehicles
@@ -169,6 +169,28 @@ function ents_methods:tpgBotInSeat()
     if not IsValid(ent) then return nil end
     local rider = ent.TPG_Rider
     if IsValid(rider) then return sanitize(rider) end
+    return nil
+end
+
+--- The bot walking to this seat to board it, or nil if there is none.
+-- @server
+-- @return Entity
+function ents_methods:tpgBotBoarding()
+    local bv = botVehicles()
+    if not bv or not bv.Boarder then return nil end
+    local npc = bv.Boarder(getent(self))
+    if IsValid(npc) then return sanitize(npc) end
+    return nil
+end
+
+--- Where bots walk to board this seat, which is where they get out too.
+-- @server
+-- @return Vector
+function ents_methods:tpgBotBoardPos()
+    local bv = botVehicles()
+    if not bv or not bv.BoardPos then return nil end
+    local pos = bv.BoardPos(getent(self))
+    if pos then return vwrap(pos) end
     return nil
 end
 
